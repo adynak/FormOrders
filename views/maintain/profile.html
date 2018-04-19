@@ -1,0 +1,82 @@
+<div class="alert">
+    <div class="col-md-8 col-md-offset-2">
+      <form name="profileForm" class="alert" ng-submit="updateMember()" novalidate>
+        <h4 class="alert btn-gray">{{prompts.pageTitle}}</h4>
+              
+        <p class="text-danger" ng-show="invalidmessage">{{invalidmessage}}</p>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6 required">
+          <label for="inputFormOrderID">{{prompts.formOrderID}}</label>
+          <input class="form-control" 
+                 type="text" 
+                 name="formOrderID" 
+                 placeholder="{{prompts.placeholderFormOrderID}}"
+                 ng-model="profile.formOrderID"
+                 tabindex="1"
+                 ng-required="true"
+                 autofocus>
+          <p class="text-danger"
+             ng-show="profileForm.nameFirst.$invalid && 
+                      profileForm.nameFirst.$touched">{{prompts.errNameFirst}}</p>
+        </div>
+
+        <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+          <label for="inputDealRetail">{{prompts.dealRetail}}</label>
+          <input class="form-control" 
+                 type="text" 
+                 name="dealRetail" 
+                 placeholder="{{prompts.placeholderDeals}}"
+                 ng-model="profile.dealRetail"
+                 tabindex="3"
+                 ng-required="false">
+          <p class="text-danger"
+             ng-show="profileForm.nameLast.$invalid && 
+                      profileForm.nameLast.$touched">{{prompts.errNameLast}}</p>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6 required">
+          <label for="inputContractLine">{{prompts.contractLine}}</label>
+          <input class="form-control" 
+                 type="text" 
+                 name="contractLine" 
+                 placeholder="{{prompts.placeholderContractLine}}"
+                 ng-model="profile.contractLine"
+                 tabindex="2"
+                 ng-required="true">
+          <p class="text-danger"
+             ng-show="profileForm.phone.$invalid && 
+                      profileForm.phone.$touched">{{prompts.errPhonePrimary}}</p>
+        </div>
+
+        <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+          <label for="inputDealLease">{{prompts.dealLease}}</label>
+          <input class="form-control" 
+                 type="text" 
+                 name="dealLease" 
+                 placeholder="{{prompts.placeholderDeals}}" 
+                 ng-model="profile.dealLease"
+                 tabindex="4"
+                 ng-required="false">
+          <p class="text-danger"
+             ng-show="profileForm.email.$invalid && 
+                      profileForm.email.$touched">{{prompts.errEmail}}</p>
+        </div>
+
+        <button class="btn btn-lg btn-teal btn-block" 
+                type="submit"
+                tabindex="5" 
+                ng-disabled="profileForm.$invalid">{{prompts.btnSubmit}}
+        </button>
+        <button class="btn btn-lg btn-khaki btn-block" 
+                type="button" 
+                tabindex="6"
+                onclick="window.history.go(-1);">{{prompts.btnCancel}}
+        </button>
+
+      </form>
+    </div>
+</div>

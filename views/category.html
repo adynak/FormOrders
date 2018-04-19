@@ -1,0 +1,60 @@
+<div class="alert">
+	<div class="col-md-8 col-md-offset-2">
+<!-- 		<form name="profileForm" class="alert maint-background" ng-submit="updateMember()" novalidate>
+ -->      
+		<h4 class="alert btn-gray">{{prompts.pageTitle}}</h4>
+
+        <label style="padding-top:15px" for="formOrderID">{{prompts.formsList}}</label>
+
+        <button class="pull-right btn btn-outline-info pad-bottom" 
+                type="button" 
+                ng-click="clearTextArea(this);">{{prompts.clearFormsList}}
+        </button>
+
+		<textarea id="formPaths" placeholder="{{prompts.placeHolderFormsList}}" cols="2" rows="10"></textarea>
+        <div class="clearfix"></div>
+
+        <div class="clearfix"></div>
+        <br>
+
+        <div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <p class="input-group">
+          <label for="formOrderID">{{prompts.dateDue}}&nbsp;&nbsp;&nbsp;</label>
+
+          <input type="text" 
+          		 class="form-control" 
+          		 datepicker-popup="{{format}}" 
+          		 ng-model="dt" 
+          		 is-open="opened" 
+          		 min-date="minDate" 
+          		 max-date="'2025-06-22'" 
+          		 datepicker-options="dateOptions" 
+          		 date-disabled="disabled(date, mode)" 
+          		 ng-required="true" 
+          		 close-text="Close"/>
+          <span class="input-group-btn">
+                <button type="button" 
+                		    class="btn btn-default form-control pad-top" 
+                		    ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+      </div>
+    </div>
+
+        <label for="comments">{{prompts.comments}}</label>
+		<textarea placeholder="{{prompts.placeHolderComments}}" cols="2" rows="3"></textarea>
+
+
+		<button class="btn btn-lg btn-teal btn-block" 
+		    type="button" 
+		    ng-click="copyToClipboard();">{{prompts.btnCopyToClipboard}}
+		</button>
+		<button class="btn btn-lg btn-khaki btn-block" 
+		    type="button" 
+        ng-click="goBack();">{{prompts.btnCancel}}
+		</button>
+	</div>
+</div>

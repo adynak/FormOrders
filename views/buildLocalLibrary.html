@@ -1,0 +1,44 @@
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<form name="profileForm" class="alert" ng-submit="updateMember()" novalidate>
+		<h4 class="alert btn-gray">{{prompts.pageTitle}}</h4>
+
+
+        <label style="padding-top:15px" for="formOrderID">{{prompts.formsList}}</label>
+        <button class="pull-right btn btn-outline-info pad-bottom" 
+				type="button" 
+				ng-click="clearTextArea(this);">{{prompts.clearFormsList}}
+		</button>
+
+    	<textarea id="formPaths" placeholder="{{prompts.placeHolderFormsList}}" cols="2" rows="10"></textarea>
+        <div class="clearfix"></div>
+
+        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 required">
+          <label for="localFolder">{{prompts.localFolder}}</label>
+          <input class="form-control" 
+                 type="text" 
+                 name="localFolder" 
+                 placeholder="{{prompts.placeholderLocalLibrary}}"
+                 ng-model="localFolder"
+                 tabindex="2"
+                 ng-required="true">
+        </div>
+
+        <div class="clearfix"></div>
+        <br>
+        <div>
+
+        <label for="comments">{{prompts.xcopyCommand}}</label>
+		<textarea id="pasteText" placeholder="{{prompts.placeholderXcopyCommand}}" cols="2" rows="3"></textarea>
+
+
+		<button class="btn btn-lg btn-teal btn-block" 
+		    type="button" 
+		    ng-click="copyLibraryPathToClipboard();">{{prompts.btnBuildXcopyCommand}}
+		</button>
+		<button class="btn btn-lg btn-khaki btn-block" 
+		    type="button" 
+		    onclick="window.history.go(-1);">{{prompts.btnCancel}}
+		</button>
+	</div>
+</div>

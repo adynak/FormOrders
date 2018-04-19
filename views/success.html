@@ -1,0 +1,29 @@
+<nav class="navbar navbar-default sidebar" role="navigation">
+  <div class="container-fluid">
+
+    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+
+      <ul class="nav navbar-nav">
+        <li ng-repeat="menuItem in sideMenu">
+          <a href="#/{{menuItem.link}}">{{menuItem.label}}
+            <span style="font-size:16px;"
+                  class="pull-right hidden-xs showopacity {{menuItem.iconClass}}">
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a href="" ng-click="startOver();">StartOver
+            <span style="font-size:16px;"
+                  class="pull-right hidden-xs showopacity glyphicon glyphicon-refresh alert-success">
+            </span>
+          </a>
+        </li>
+
+
+      </ul>
+
+    </div>
+
+  </div>
+</nav>
