@@ -11,7 +11,7 @@
                 ng-click="clearTextArea(this);">{{prompts.clearFormsList}}
         </button>
 
-		<textarea id="formPaths" placeholder="{{prompts.placeHolderFormsList}}" cols="2" rows="10"></textarea>
+		<textarea ng-model="formNumbers" id="formPaths" placeholder="{{prompts.placeHolderFormList}}" cols="2" rows="10"></textarea>
         <div class="clearfix"></div>
 
         <div class="clearfix"></div>
@@ -27,7 +27,7 @@
           <input type="text" 
           		 class="form-control" 
           		 datepicker-popup="{{format}}" 
-          		 ng-model="dt" 
+          		 ng-model="dueDate" 
           		 is-open="opened" 
           		 min-date="minDate" 
           		 max-date="'2025-06-22'" 
@@ -44,10 +44,12 @@
       </div>
     </div>
 
-        <label for="comments">{{prompts.comments}}</label>
-		<textarea placeholder="{{prompts.placeHolderComments}}" cols="2" rows="3"></textarea>
-        <div class="clearfix"></div>
-        <br>
+    <label for="comments">{{prompts.comments}}</label>
+		<textarea ng-model="comments" placeholder="{{prompts.placeHolderComments}}" cols="2" rows="3"></textarea>
+
+    <div class="clearfix"></div>
+    <br>
+
     <div class="btn-toolbar pull-right">
   		<button class="btn btn-teal" 
   		    type="button" 
@@ -58,5 +60,6 @@
           ng-click="goBack();">{{prompts.btnCancel}}
   		</button>
     </div>
+
 	</div>
 </div>

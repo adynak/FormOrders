@@ -31,7 +31,7 @@
     <script src="node_modules/angular-ui-bootstrap/ui-bootstrap-tpls-0.13.0.min.js"></script>
 
 
-    <script src="node_modules/fractional/releases/fraction-0.2.js"></script>
+    <script src="node_modules/moment/moment.js"></script>
 
     <script src="js/app.js"></script>
 

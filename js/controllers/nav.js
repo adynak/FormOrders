@@ -11,10 +11,7 @@ draanks.controller('NavigationController', ['$scope', '$http', '$location', 'Dat
                 dealLease:null
             };
             
-            Data.setProfile(profile);
         }
-
-
 
     }
 ]);

@@ -5,20 +5,20 @@ draanks.controller('SuccessController', ['$scope', '$http', '$location', 'Data',
         $scope.member = Data.getCurrentMember();
         $scope.sideMenu = menuSide;
 
-        if (typeof($scope.member) !== 'undefined'){
-            if ($scope.member.onlineid == 'guest'){
-                Data.logout().then(function(status) {
-                    if (status == 'success') {
-                        $location.path('/login');
-                        toaster.pop('info', "", txtLogin.logOut, 3000, 'trustedHtml');
-                    } else {
-                        $scope.invalidmessage = 'log out failed';
-                    }
-                }, function(err) {
-                    $scope.invalidmessage = err;
-                });                
-            }
-        }
+        // if (typeof($scope.member) !== 'undefined'){
+        //     if ($scope.member.onlineid == 'guest'){
+        //         Data.logout().then(function(status) {
+        //             if (status == 'success') {
+        //                 $location.path('/login');
+        //                 toaster.pop('info', "", txtLogin.logOut, 3000, 'trustedHtml');
+        //             } else {
+        //                 $scope.invalidmessage = 'log out failed';
+        //             }
+        //         }, function(err) {
+        //             $scope.invalidmessage = err;
+        //         });                
+        //     }
+        // }
 
         $scope.applyThisClass = function(memberProfile) {
             if (typeof(memberProfile) !== 'undefined'){

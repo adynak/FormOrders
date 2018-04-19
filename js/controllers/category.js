@@ -4,20 +4,21 @@ draanks.controller('CategoryController', ['$scope', '$http', '$location', 'Data'
 		$scope.prompts = txtCategoryFormsOrder;
 
 		var category = getParameterByName('category');
+    $scope.formNumbers = Data.getFormsOrders(category);
 		$scope.prompts.pageTitle = category + txtCategoryFormsOrder.formsOrder;
-		$scope.prompts.placeHolderFormsList = txtCategoryFormsOrder.placeHolderFormsList.replace("%1",category);
+		$scope.prompts.placeHolderFormList = txtCategoryFormsOrder.placeHolderFormsList.replace("%1",category);
 
     $scope.clearTextArea = function(){
       document.getElementById("formPaths").value = "";
     }
 
   $scope.today = function() {
-    $scope.dt = new Date();
+    $scope.dueDate = new Date();
   };
   $scope.today();
 
   $scope.clear = function () {
-    $scope.dt = null;
+    $scope.dueDate = null;
   };
 
   // Disable weekend selection
@@ -51,52 +52,70 @@ draanks.controller('CategoryController', ['$scope', '$http', '$location', 'Data'
 			var line = ''
 
 			var profile = Data.getProfile();
-			profile.formOrderID = '123';
-			profile.contractLine = 'af';
-			profile.dealRetail = 'qsdad';
-			profile.dealLease = '142';
 
 			var clipboardText = "\r\n";
 
 			line = "[Forms Order]" + "\r\n";
 			clipboardText += line;
 
-			line = profile.formOrderID + "\r\n\r\n";
-			clipboardText += line;
+      if (profile.formOrderID == null){
+        clipboardText += "\r\n";
+      } else {
+        clipboardText += profile.formOrderID + "\r\n\r\n";
+      }
 
 			line = "[Contract Line]" + "\r\n";
 			clipboardText += line;
 
-			line = profile.contractLine + "\r\n\r\n";
-			clipboardText += line;
+      if (profile.contractLine == null){
+        clipboardText += "\r\n";
+      } else {
+        clipboardText += profile.formOrderID + "\r\n\r\n";
+      }
 
 			line = "[Due Date]" + "\r\n";
 			clipboardText += line;
 
-			line = "" + "\r\n\r\n";
+			line = moment($scope.dueDate).format('MM/DD/YYYY') + "\r\n\r\n";
 			clipboardText += line;
 
 			line = "[Test Deals]" + "\r\n";
 			clipboardText += line;
 
-			line = "Retail Deal: " + profile.dealRetail + "\r\n";
-			clipboardText += line;
+      if (profile.dealRetail == null){
+        clipboardText += "Retail Deal: " + "\r\n";
+      } else {
+        clipboardText += "Retail Deal: " + profile.dealRetail + "\r\n";
+      }
 
-			line = "Lease Deal: " + profile.dealLease + "\r\n\r\n";
-			clipboardText += line;
+      if (profile.dealLease == null){
+        clipboardText += "Lease Deal: " + "\r\n\r\n";
+      } else {
+        clipboardText += "Lease Deal: " + profile.dealLease + "\r\n\r\n";
+      }
 
 			line = "[" + category + " Forms]"+ "\r\n";
 			clipboardText += line;
 
-			line = "" + "\r\n\r\n";
-			clipboardText += line;
+      if (typeof($scope.formNumbers) == "undefined"){
+        clipboardText += "\r\n";
+      } else {
+        var temp = $scope.formNumbers;
+        line = temp.replace(/\r?\n/g, "\r\n");
+        clipboardText += line;
+        clipboardText += "\r\n\r\n";
+      }
 
 			line = "[Comments]"+ "\r\n";
 			clipboardText += line;
 
-			line = "" + "\r\n\r\n";
-			clipboardText += line;
+      if (profile.dealLease == null){
+        clipboardText += "\r\n";
+      } else {
+        clipboardText += $scope.comments + "\r\n\r\n";
+      }
 
+      Data.setFormsOrders(category,$scope.formNumbers);
 
 
     // create temp element
@@ -115,12 +134,13 @@ draanks.controller('CategoryController', ['$scope', '$http', '$location', 'Data'
     document.execCommand('copy');
     window.getSelection().removeAllRanges();
     copyElement.remove();
-
+    window.history.go(-1);
 
 
 		};
 
     $scope.goBack = function(){
+      Data.setFormsOrders(category,$scope.formNumbers);
       window.history.go(-1);
     }
 

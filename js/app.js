@@ -6,11 +6,14 @@ draanks.config(['$routeProvider', '$locationProvider', function($routeProvider, 
     
     $locationProvider.hashPrefix(''); 
 
-    document.title = txtNavigation.brandName;
+    document.title = txtNavigation.siteTitle;
     $routeProvider.
     when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'RegistrationController',
+        // templateUrl: 'views/login.html',
+        // controller: 'RegistrationController',
+        // task: 'getsessiondata'.
+        templateUrl: 'views/success.html',
+        controller: 'SuccessController',
         task: 'getsessiondata'
     }).
     when('/register', {
@@ -74,7 +77,7 @@ draanks.config(['$routeProvider', '$locationProvider', function($routeProvider, 
         task: 'getsessiondata'
     }).    
     otherwise({
-        redirectTo: '/login',
+        redirectTo: '/success',
         task: 'getsessiondata'
 
     });
@@ -82,44 +85,44 @@ draanks.config(['$routeProvider', '$locationProvider', function($routeProvider, 
 
 }]).run(function($rootScope, $location, Data) {
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
-        var securityInfo = Data.getSecurityInfo();
-        if (securityInfo.stop){
-            $location.path("/getSecurity");
-            next.templateUrl = 'views/security.html';
-        }
+        // var securityInfo = Data.getSecurityInfo();
+        // if (securityInfo.stop){
+        //     $location.path("/getSecurity");
+        //     next.templateUrl = 'views/security.html';
+        // }
 
-        Data.setIsNotLoggedIn(true);
-        Data.setAuthenticated(false);
+        // Data.setIsNotLoggedIn(true);
+        // Data.setAuthenticated(false);
 
-        $rootScope.isnotloggedin = true;
-        $rootScope.authenticated = false;
+        // $rootScope.isnotloggedin = true;
+        // $rootScope.authenticated = false;
 
-        var nextUrl = next.templateUrl;
-        Data.getSession(next.task).then(function(results) {
-            if (results[0].id) {
+        // var nextUrl = next.templateUrl;
+        // Data.getSession(next.task).then(function(results) {
+        //     if (results[0].id) {
 
-                $rootScope.isnotloggedin = false;
-                $rootScope.authenticated = true;
+        //         $rootScope.isnotloggedin = false;
+        //         $rootScope.authenticated = true;
 
-                Data.setIsNotLoggedIn(false);
-                Data.setAuthenticated(true);
+        //         Data.setIsNotLoggedIn(false);
+        //         Data.setAuthenticated(true);
 
-                if (next.task === 'getsessiondata') {
-                    Data.setCurrentMember(results[0]);
-                }
+        //         if (next.task === 'getsessiondata') {
+        //             Data.setCurrentMember(results[0]);
+        //         }
 
-                if (nextUrl == 'views/register.html' || nextUrl == 'views/login.html') {
-                    $location.path("/success");
-                }
-            } else {
+        //         if (nextUrl == 'views/register.html' || nextUrl == 'views/login.html') {
+        //             $location.path("/success");
+        //         }
+        //     } else {
 
-                if (nextUrl == 'views/register.html' || 
-                    nextUrl == 'views/login.html' || 
-                    nextUrl == 'views/security.html') {
-                } else {
-                    $location.path("/login");
-                }
-            }
-        });
+        //         if (nextUrl == 'views/register.html' || 
+        //             nextUrl == 'views/login.html' || 
+        //             nextUrl == 'views/security.html') {
+        //         } else {
+        //             $location.path("/login");
+        //         }
+        //     }
+        // });
     });
 });

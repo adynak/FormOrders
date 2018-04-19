@@ -61,6 +61,7 @@ var txtLogin = {
 };
 
 var txtNavigation = {
+    siteTitle: 'eforms Template',
     brandName: 'eForms Template: Form Orders',
     btnLogin: 'Login',
     btnRegister: 'Register',

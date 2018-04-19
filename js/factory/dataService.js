@@ -14,9 +14,45 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
                 contractLine: null,
                 dealRetail:   null,
                 dealLease:    null
+            },
+            formsOrders: {
+                catOne: null,
+                catTwo: null,
+                catThree: null,
             }
         };
 
+        var setFormsOrders = function(category,forms){
+            switch (category){
+                case "CAT1":
+                    factoryVariables.formsOrders.catOne = forms;
+                break;
+
+                case "CAT2":
+                    factoryVariables.formsOrders.catTwo = forms;
+                break;
+
+                case "CAT3":
+                    factoryVariables.formsOrders.catThree = forms;
+                break;
+            }
+        }
+
+        var getFormsOrders = function(category){
+            switch (category){
+                case "CAT1":
+                    return factoryVariables.formsOrders.catOne;
+                break;
+
+                case "CAT2":
+                    return factoryVariables.formsOrders.catTwo;
+                break;
+
+                case "CAT3":
+                    return factoryVariables.formsOrders.catThree;
+                break;
+            }   
+        }
         var setProfile = function(profile){
             factoryVariables.profile = profile;
         }
@@ -253,7 +289,9 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
             setSecurityInfo: setSecurityInfo,
             getSecurityInfo: getSecurityInfo,
             setProfile: setProfile,
-            getProfile: getProfile
+            getProfile: getProfile,
+            setFormsOrders: setFormsOrders,
+            getFormsOrders: getFormsOrders
         };
     }
 ]);
