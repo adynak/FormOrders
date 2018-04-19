@@ -1,7 +1,7 @@
 <div class="alert">
     <div class="col-md-8 col-md-offset-2">
       <form name="profileForm" class="alert" ng-submit="updateMember()" novalidate>
-        <h4 class="alert btn-gray">{{prompts.pageTitle}}</h4>
+        <h4 class="alert alert-cdk">{{prompts.pageTitle}}</h4>
               
         <p class="text-danger" ng-show="invalidmessage">{{invalidmessage}}</p>
 
@@ -66,16 +66,18 @@
                       profileForm.email.$touched">{{prompts.errEmail}}</p>
         </div>
 
-        <button class="btn btn-lg btn-teal btn-block" 
-                type="submit"
-                tabindex="5" 
-                ng-disabled="profileForm.$invalid">{{prompts.btnSubmit}}
-        </button>
-        <button class="btn btn-lg btn-khaki btn-block" 
-                type="button" 
-                tabindex="6"
-                onclick="window.history.go(-1);">{{prompts.btnCancel}}
-        </button>
+      <div class="btn-toolbar pull-right">
+          <button class="btn btn-teal" 
+                  type="submit"
+                  tabindex="5" 
+                  ng-disabled="profileForm.$invalid">{{prompts.btnSubmit}}
+          </button>
+          <button class="btn  btn-khaki" 
+                  type="button" 
+                  tabindex="6"
+                  onclick="window.history.go(-1);">{{prompts.btnCancel}}
+          </button>
+      </div>
 
       </form>
     </div>
