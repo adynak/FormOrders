@@ -106,12 +106,10 @@ draanks.controller('CategoryController', ['$scope', '$http', '$location', 'Data'
         clipboardText += "\r\n\r\n";
       }
 
-			line = "[Comments]"+ "\r\n";
-			clipboardText += line;
-
-      if (profile.dealLease == null){
+      if (typeof($scope.comments) == "undefined"){
         clipboardText += "\r\n";
       } else {
+        clipboardText += "[Comments]"+ "\r\n";
         clipboardText += $scope.comments + "\r\n\r\n";
       }
 

@@ -48,6 +48,7 @@
     <script src="js/controllers/maintain/menu.js"></script>
     <script src="js/controllers/maintain/newRecipe.js"></script>
     <script src="js/controllers/maintain/profile.js"></script>
+    <script src="js/controllers/maintain/brand.js"></script>
 
     <script src="js/factory/dataService.js"></script>
     <script src="js/factory/listService.js"></script>

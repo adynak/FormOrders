@@ -160,17 +160,36 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
             return qObject.promise;            
         }
 
-        var updateMemberInfo = function(member){
+        var getUsers = function(brand) {
             var qObject = $q.defer();
             var params = {
-                userInfo: member,
-                task: 'updateuser',
-                securityInfo: getSecurityInfo()                
+                brand: brand
             };
             $http({
                 method: 'POST',
-                url: 'resources/dataServices/dataService.php',
+                url: 'resources/dataServices/brandForms.php',
                 data: params,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function(success) {
+                qObject.resolve(success.data);
+            }, function(err) {
+                console.log(err);
+            });
+            return qObject.promise;
+
+        };
+
+        var updateFormInfo = function(brand){
+            var qObject = $q.defer();
+            var params = {
+                brand: brand
+            };
+            $http({
+                method: 'POST',
+                url: 'resources/dataServices/brandForms.php',
+                data: "params",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
@@ -206,11 +225,11 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
             return qObject.promise;            
         }
 
-        var getCocktails = function(){
+        var getCocktails = function(brand){
             var qObject = $q.defer();
             var params = {
                 task: 'getCocktails',
-                securityInfo: getSecurityInfo()                
+                brand: brand
             };
 
             $http({
@@ -273,7 +292,7 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
         return {
             validateCredentials: validateCredentials,
             registerMember: registerMember,
-            updateMemberInfo: updateMemberInfo,
+            updateFormInfo: updateFormInfo,
             logout: logout,
             getSession: getSession,
             setCurrentMember: setCurrentMember,
@@ -291,7 +310,8 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
             setProfile: setProfile,
             getProfile: getProfile,
             setFormsOrders: setFormsOrders,
-            getFormsOrders: getFormsOrders
+            getFormsOrders: getFormsOrders,
+            getUsers: getUsers
         };
     }
 ]);

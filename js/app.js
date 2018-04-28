@@ -41,6 +41,11 @@ draanks.config(['$routeProvider', '$locationProvider', function($routeProvider, 
         controller: 'BuildLocalLibraryController',
         task: 'getsessiondata'
     }).
+    when('/customizeLibrary', {
+        templateUrl: 'views/maintain/brand.html',
+        controller: 'BrandController',
+        task: 'getsessiondata'
+    }).    
     when('/newRecipe', {
         templateUrl: 'views/maintain/newRecipe.html',
         controller: 'NewRecipeController',

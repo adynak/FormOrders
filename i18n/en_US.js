@@ -173,7 +173,12 @@ var menuSide = [
         label: "Build Local Library",
         link:"buildLocalLibrary",
         iconClass:"glyphicon glyphicon-cloud-download alert-info"
-    }  
+    },
+    {
+        label: "Customize Forms",
+        link:"customizeLibrary",
+        iconClass:"glyphicon glyphicon-certificate alert-gold"
+    }
 ];
 
 var txtToaster = {
@@ -209,6 +214,35 @@ var txtProfile = {
     passwordConfirm: 'Confirm Password',
     phonePrimary: 'Phone Number',
     updateSuccessful: 'Profile Updated Successfully',
+};
+
+var txtBrand = {
+    pageTitle: "Customize Forms Library",
+    cmf: "CMF Number",
+    cNumber: "C Number",
+    dashFI: "F&I Account Name",
+    ip: "IP Address",
+    dealRetail: "Retail Deal Number",
+    dealLease: "Lease Deal Number",
+    btnSubmit: "Brand Forms",
+    btnCancel: "Cancel",
+    updateBy: "Update By Name",
+    comment: "Comment",
+    requiredMsg: "Required fields are marked with an asterisk. " +
+     "The other responses are not required. However, the action will still be performed. "+
+     "That is, if you leave a field blank, a blank value will be used in branding.",
+    placeHolderComment: 'optional comment',
+    localFormsFolder: 'Local Forms Library',
+    placeholderLocalFormsFolder: "Paste or type in the full path to your local forms library for this install",
+    localDealsFolder: 'Local Deals Library',
+    placeholderLocalDealsFolder: "C:\\WORKING SITE DOWNLOADS\\FI\\Datastreams",
+    placeholderCMF: 'CMF Number',
+    placeholderCNumber: 'CNumber',
+    placeholderDashFI: 'F&I account name',
+    placeholderDealRetail: 'Retail Deal Number',
+    placeholderDealLease: 'Lease Deal Number',
+    placeholderIP: 'IP Address',
+    placeholderUpdateBy: 'Update By Name'
 };
 
 var txtSecurity = {
