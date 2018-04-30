@@ -11,14 +11,24 @@ draanks.controller('BrandController', ['$scope', '$http', '$location', 'Data', '
         $scope.brandForms = function() {
             // $location.path('/success');
             toaster.pop('info', "", txtProfile.updateSuccessful, 3000, 'trustedHtml');
-
-
-            Data.getUsers($scope.brand)
+debugger;
+            Data.getFormPath(53452)
             .then(function successCallback(response){
+                console.log('wtf');
+                console.log(response);
                 console.log("Success" + response);
             }, function errorCallback(response){
+                console.log(response);
                console.log("Error"); 
             });
+
+
+            // Data.getUsers($scope.brand)
+            // .then(function successCallback(response){
+            //     console.log("Success" + response);
+            // }, function errorCallback(response){
+            //    console.log("Error"); 
+            // });
 
             // Data.updateFormInfo($scope.brand).then(function(status) {
             //     console.log(status);

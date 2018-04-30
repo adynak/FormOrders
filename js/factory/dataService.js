@@ -202,17 +202,15 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
             return qObject.promise;
         }
 
-        var addToLibrary = function(cocktail){
+        var getFormPath = function(formID){
             var qObject = $q.defer();
             var params = {
-                cocktail: cocktail,
-                task: 'addToLibrary',
-                securityInfo: getSecurityInfo()                
+                formID: formID
             };
 
             $http({
                 method: 'POST',
-                url: 'resources/dataServices/dataService.php',
+                url: 'https://staging.dealersuite.com/LenderForm/rest/eFormLibrary/getMappingFilePath',
                 data: params,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -303,7 +301,7 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
             getAuthenticated: getAuthenticated,
             getActiveMember: getActiveMember,
             setActiveMember: setActiveMember,
-            addToLibrary: addToLibrary,
+            getFormPath: getFormPath,
             getCocktails: getCocktails,
             setSecurityInfo: setSecurityInfo,
             getSecurityInfo: getSecurityInfo,
