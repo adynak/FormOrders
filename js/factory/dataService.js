@@ -1,4 +1,4 @@
-draanks.factory("Data", ['$http', '$q', '$rootScope',
+formOrders.factory("Data", ['$http', '$q', '$rootScope',
     function($http, $q, $rootScope) {
 
         var factoryVariables = {
@@ -16,8 +16,8 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
                 dealLease:    null
             },
             formsOrders: {
-                catOne: null,
-                catTwo: null,
+                catOne:   null,
+                catTwo:   null,
                 catThree: null,
             }
         };
@@ -53,6 +53,7 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
                 break;
             }   
         }
+
         var setProfile = function(profile){
             factoryVariables.profile = profile;
         }
@@ -61,106 +62,7 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
             return factoryVariables.profile;
         }
 
-        var setIsNotLoggedIn = function(flag){
-            factoryVariables.isNotLoggedIn = flag;
-        }
-
-        var getIsNotLoggedIn = function(){
-            return factoryVariables.isNotLoggedIn;
-        }
-
-        var setAuthenticated = function(flag){
-            factoryVariables.authenticated = flag;
-        }
-
-        var getAuthenticated = function(){
-            return factoryVariables.authenticated;
-        }
-
-        var setCurrentMember = function(currentMember){
-            factoryVariables.currentMember = currentMember;
-        }
-
-        var getCurrentMember = function(){
-            return factoryVariables.currentMember;
-        }
-
-        var setActiveMember = function(activeMember){
-            factoryVariables.activeMember = activeMember;
-        }
-
-        var getActiveMember = function(){
-            return factoryVariables.activeMember;
-        }
-
-        var setSecurityInfo = function(securityInfo){
-            localStorage.setItem('goofyLuvin', securityInfo.schema);
-            localStorage.setItem('raininspain', securityInfo.dbPass);
-            localStorage.setItem('misoandgrace', securityInfo.pgPort);            
-            factoryVariables.securityInfo = securityInfo;
-        }
-
-        var getSecurityInfo = function(){
-            if (factoryVariables.securityInfo.schema == null || factoryVariables.securityInfo.dbPass == null || factoryVariables.securityInfo.pgPort == null){
-                factoryVariables.securityInfo.schema = localStorage.getItem('goofyLuvin');
-                factoryVariables.securityInfo.dbPass = localStorage.getItem('raininspain');
-                factoryVariables.securityInfo.pgPort = localStorage.getItem('misoandgrace');
-                if (factoryVariables.securityInfo.schema !== null && factoryVariables.securityInfo.dbPass !== null && factoryVariables.securityInfo.pgPort !== null){
-                    factoryVariables.securityInfo.stop = false;
-                }
-            }
-            return factoryVariables.securityInfo;
-        }        
-
-        var validateCredentials = function(member){
-            var qObject = $q.defer();
-            var params = {
-                email: member.email,
-                password: member.password,
-                task: 'validate',
-                securityInfo: getSecurityInfo()
-            };
-            $http({
-                method: 'POST',
-                url: 'resources/dataServices/dataService.php',
-                data: params,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-            }).then(function(success) {
-                qObject.resolve(success.data);
-            }, function(err) {
-                console.log(err);
-            });
-            return qObject.promise;            
-        }
-
-        var registerMember = function(member) {
-            // https://script.google.com/macros/d/MNYmhNDROwSuCBulBjpCOBQxbFS9WIK2d/edit?uiv=2&mid=ACjPJvEKyT7zYT3fN-Bh1kBFyqiw_j-NG0SCSo6rc8dz7_7-9NTrsj5jSdurrMX2vu4lYc7bcXFNQFhfPeq_OqzPSlpd9Gs2g6YQLT_tIItlrJTTIi-nhs6yiSsIL-QsJeoPX6K2BBxTuGc
-            var qObject = $q.defer();
-            delete member.confirmpassword;
-            member.onlineid = member.email.substring(0, member.email.lastIndexOf("@"));
-            member.webApp = txtNavigation.brandName;
-            member.replyTo = txtNavigation.replyTo;
-            member.appDomain = txtNavigation.appDomain;
-            var params = "&" + $.param(member);
-            var webApp = 'https://script.google.com/macros/s/AKfycbwL0BWFFP7Pz-qsjqpuLUCEtjlN2qSvxehkmLXzued3xhron0lS/exec';
-            $http({
-                method: 'POST',
-                url: webApp,
-                data: params,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-            }).then(function(success) {
-                qObject.resolve(success.data);
-            }, function(err) {
-                console.log(err);
-            });
-            return qObject.promise;            
-        }
-
-        var getUsers = function(brand) {
+        var brandForms = function(brand) {
             var qObject = $q.defer();
             var params = {
                 brand: brand
@@ -168,6 +70,30 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
             $http({
                 method: 'POST',
                 url: 'resources/dataServices/brandForms.php',
+                data: params,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function(success) {
+                qObject.resolve(success.data);
+            }, function(err) {
+                console.log(err);
+            });
+            return qObject.promise;
+
+        };
+
+
+        var getLibraryForm = function(pathToForm,formID,localFolder) {
+            var qObject = $q.defer();
+            var params = {
+                path: pathToForm,
+                formID: formID,
+                localFolder: localFolder
+            };
+            $http({
+                method: 'POST',
+                url: 'resources/dataServices/copyForms.php',
                 data: params,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -207,109 +133,36 @@ draanks.factory("Data", ['$http', '$q', '$rootScope',
             var params = {
                 formID: formID
             };
+            var url = "http://public-api.wordpress.com/rest/v1/sites/wtmpeachtest.wordpress.com/posts?callback=JSON_CALLBACK";
+            url = 'https://portal.dealersuite.com/LenderForm/rest/eFormLibrary/getMappingFilePath';
+            // url = 'http://139.126.14.7/paris/ffc/formsOrders/findIt.php?formID=123';
+
 
             $http({
-                method: 'POST',
-                url: 'https://staging.dealersuite.com/LenderForm/rest/eFormLibrary/getMappingFilePath',
-                data: params,
+                method: 'GET',
+                url: url,
+                params: params,
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + btoa('eforms.order.details@dealersuite.com:EfProdyR3c')                    
+                }
             }).then(function(success) {
                 qObject.resolve(success.data);
             }, function(err) {
                 console.log(err);
             });
             return qObject.promise;            
-        }
-
-        var getCocktails = function(brand){
-            var qObject = $q.defer();
-            var params = {
-                task: 'getCocktails',
-                brand: brand
-            };
-
-            $http({
-                method: 'POST',
-                url: 'resources/dataServices/dataService.php',
-                data: params,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-            }).then(function(success) {
-                qObject.resolve(success.data);
-            }, function(err) {
-                console.log(err);
-            });
-            return qObject.promise;            
-        }
-
-        var logout = function(member){
-            var qObject = $q.defer();
-            var params = {
-                task: 'logout',
-                securityInfo: getSecurityInfo()                
-            };
-            $http({
-                method: 'POST',
-                url: 'resources/dataServices/dataService.php',
-                data: params,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-            }).then(function(success) {
-                qObject.resolve(success.data);
-            }, function(err) {
-                console.log(err);
-            });
-            return qObject.promise;
-        }
-
-        var getSession = function(task){
-            var qObject = $q.defer();
-            var params = {
-                task: task,
-                securityInfo: getSecurityInfo()                
-            };
-            $http({
-                method: 'POST',
-                url: 'resources/dataServices/dataService.php',
-                data: params,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-            }).then(function(success) {
-                qObject.resolve(success.data);
-            }, function(err) {
-                console.log(err);
-            });
-            return qObject.promise;
         }
 
         return {
-            validateCredentials: validateCredentials,
-            registerMember: registerMember,
             updateFormInfo: updateFormInfo,
-            logout: logout,
-            getSession: getSession,
-            setCurrentMember: setCurrentMember,
-            getCurrentMember: getCurrentMember,
-            setIsNotLoggedIn: setIsNotLoggedIn,
-            getIsNotLoggedIn: getIsNotLoggedIn,
-            setAuthenticated: setAuthenticated,
-            getAuthenticated: getAuthenticated,
-            getActiveMember: getActiveMember,
-            setActiveMember: setActiveMember,
+            brandForms: brandForms,
             getFormPath: getFormPath,
-            getCocktails: getCocktails,
-            setSecurityInfo: setSecurityInfo,
-            getSecurityInfo: getSecurityInfo,
             setProfile: setProfile,
             getProfile: getProfile,
             setFormsOrders: setFormsOrders,
             getFormsOrders: getFormsOrders,
-            getUsers: getUsers
+            getLibraryForm: getLibraryForm
         };
     }
 ]);

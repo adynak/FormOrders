@@ -1,18 +1,41 @@
 <div class="alert">
 	<div class="col-md-8 col-md-offset-2">
-		<form name="profileForm" class="alert" ng-submit="updateMember()" novalidate>
+		<form name="profileForm" class="alert" novalidate>
 		<h4 class="alert alert-cdk">{{prompts.pageTitle}}</h4>
 
-
-        <label style="padding-top:15px" for="formOrderID">{{prompts.formsList}}</label>
-        <button class="pull-right btn btn-outline-info pad-bottom" 
+<!--         <button class="pull-right btn btn-outline-info pad-bottom" 
 				type="button" 
-				ng-click="clearTextArea(this);">{{prompts.clearFormsList}}
+				ng-click="clearTextArea(this);">{{prompts.clearFormsList}}z
 		</button>
+ -->
+        <div class="form-group col-xs-5 col-sm-3 col-md-3 col-lg-3 required">
+          <label for="inputFormOrderID">{{prompts.formsList}}</label>
+          <textarea id="formsList" 
+                    placeholder="{{prompts.placeHolderFormsList}}" 
+                    cols="2"
+                    ng-model="formsList" 
+                    rows="20">
+          </textarea>
+        </div>
 
-    	<textarea id="formPaths" placeholder="{{prompts.placeHolderFormsList}}" cols="2" rows="10"></textarea>
+        <div class="form-group col-xs-10 col-sm-9 col-md-9 col-lg-9">
+          <label for="inputDealRetail">{{prompts.xcopyCommand}}</label>
+          <textarea id="pasteText" placeholder="{{prompts.placeholderXcopyCommand}}" cols="2" rows="20"></textarea>
+        </div>
+
         <div class="clearfix"></div>
 
+        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 required">
+            <button class="btn btn-outline-info" 
+                    type="button" 
+                    ng-click="clearTextArea(this);">{{prompts.clearFormsList}}
+            </button>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <br>
+        
         <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 required">
           <label for="localFolder">{{prompts.localFolder}}</label>
           <input class="form-control" 
@@ -28,13 +51,16 @@
         <br>
         <div>
 
-        <label for="comments">{{prompts.xcopyCommand}}</label>
-		<textarea id="pasteText" placeholder="{{prompts.placeholderXcopyCommand}}" cols="2" rows="3"></textarea>
+        
         <br><br>
         <div class="btn-toolbar pull-right">
-    		<button class="btn btn-teal" 
+            <button class="btn btn-teal" 
+                type="button" 
+                ng-click="copyLibraryPathToClipboard();">{{prompts.btnWhereAreThey}}
+            </button>            
+    		<button class="btn alert-cdk" 
     		    type="button" 
-    		    ng-click="copyLibraryPathToClipboard();">{{prompts.btnBuildXcopyCommand}}
+    		    ng-click="getLibraryForm();">{{prompts.btnGoGetThem}}
     		</button>
     		<button class="btn btn-khaki" 
     		    type="button" 

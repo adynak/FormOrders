@@ -266,12 +266,6 @@ section{
 .icon-cart {
   color: #FF8100;
 }
- 
-.ingredientList {
-  list-style-type:none;
-  position: relative;
-  top: -35px;
-}
 
 .btnAdd{
   top: 8px;
@@ -326,17 +320,6 @@ section{
   font-family: 'arial', 'sans-serif';
 }
 
-.maintenanceListUnorderedList {
-    -webkit-column-count: 3; -webkit-column-gap:20px;
-    -moz-column-count:3; -moz-column-gap:20px;
-    -o-column-count: 3; -o-column-gap:20px;
-    column-count: 3; column-gap:20px;
-    list-style-position: inside;
-    list-style-type:none;
-    text-align: left;
-    margin: 0px 30px 0px 30px;
-}
-
 .ui-grid-sort-priority-number { font-size: 0; }
 
 .moveUp {
@@ -356,21 +339,10 @@ body  {
     background-size:100%;
 }
 
-.passwordHelp {
-    color: black;
-    margin: 5px 0px 0px 10px;
-}
-
 .maint-background {
     color: #3a87ad;
     background-color:hsl(200,65%,100%);
     border-color: #bce8f1;
-}
-
-.form-signin {
-    border-radius: 5px;
-    /*background-color: #f2f2f2;*/
-    padding: 20px;
 }
 
 .btn-outline-info {
@@ -385,7 +357,6 @@ body  {
   background-color: #17a2b8;
   border-color: #17a2b8;
 }
-
 
 .ui-datepicker { 
   margin-left: 100px !important;
