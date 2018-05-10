@@ -6,8 +6,8 @@ formOrders.controller('BuildLocalLibraryController', ['$scope', '$http', '$locat
 		// \\139.126.12.159\ELF\DMV\State_specific\TEXAS\49145		
 		// C:\LaserInstalls\Clayco~1
 
-		$scope.localFolder = 'C:\\LaserInstalls\\test\\CAT2';
-		$scope.formsList = 63459 + "\n" + 66976;
+		// $scope.localFolder = 'C:\\LaserInstalls\\test\\CAT2';
+		// $scope.formsList = 63459 + "\n" + 66976;
 
 		$scope.copyLibraryPathToClipboard = function(){
 
