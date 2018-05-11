@@ -31,7 +31,7 @@ formOrders.controller('BuildLocalLibraryController', ['$scope', '$http', '$locat
 						pathToForm = response[i].path;
 						xcopyCommand = xcopyPrefix + pathToForm + starDotStar;
 						xcopyCommand += " " + $scope.localFolder + "\\" + formID + xcopySuffix;
-						// xcopyCommand = pathToForm;
+						xcopyCommand = pathToForm;
 						if (i==numberOfForms-1){
 							pasteText += xcopyCommand;
 						} else {
@@ -56,6 +56,21 @@ formOrders.controller('BuildLocalLibraryController', ['$scope', '$http', '$locat
 		}
 
 		$scope.getLibraryForm = function(){
+			var localFolder = $scope.localFolder;
+
+			if (typeof(localFolder) == "undefined"){
+
+				var errorToast = {
+				    type: 'error',
+				    title: txtBuildLocalLibrary.localFolder,
+				    timeout: 9000,
+				    body: txtBuildLocalLibrary.pathMissing,
+				    showCloseButton: true
+				};
+
+				toaster.pop(errorToast);
+				return;
+			}
 
 			var xcopyCommand, pathToForm, pasteText="";
 			var xcopyPrefix = "xcopy ";
@@ -74,14 +89,15 @@ formOrders.controller('BuildLocalLibraryController', ['$scope', '$http', '$locat
 				.then(function successCallback(response){
 
 					$scope.hideDownloading = false;
-					var toast = toaster.pop('warning', "", txtBuildLocalLibrary.waitWait, 300000, 'trustedHtml');
+
+					toaster.wait(txtBuildLocalLibrary.waitTitle,txtBuildLocalLibrary.waitWait,300000);
 
 					numberOfForms = response.length;
 					for (var i = 0; i < numberOfForms; i++) {
 						formID = response[i].formId;
 						pathToForm = response[i].path;
 
-						Data.getLibraryForm(pathToForm,formID,$scope.localFolder)
+						Data.getLibraryForm(pathToForm, formID, localFolder)
 							.then(function successCB(response){
 
 								var index = arrayOfPaths.indexOf(response);
@@ -94,8 +110,8 @@ formOrders.controller('BuildLocalLibraryController', ['$scope', '$http', '$locat
 									toaster.pop(
 										{
 											type: 'success',
-											title:  txtBuildLocalLibrary.formsList,
-											body: txtBuildLocalLibrary.downloadComplete,
+											title:  txtBuildLocalLibrary.downloadComplete,
+											body: formsString,
 											showCloseButton: true,
 											timeout: 5000,
 											tapToDismiss: false

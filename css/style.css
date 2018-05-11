@@ -396,3 +396,9 @@ body  {
 .btn-gray {
      background-color:#939598;
 }
+
+.Custom_temp_html{
+  /*width: 100%;*/
+  width: 400px;
+  height: 400px;
+}

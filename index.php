@@ -63,6 +63,15 @@
             <div class="row" ng-view>
             </div>
         </div>
+
+        
+ <script type="text/ng-template" id="myTemplate.html">
+            <div class="Custom_temp_html">
+                <p>Hello this is my Customm Template</p>
+            </div>
+        </script>        
+
+
     </div>
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>

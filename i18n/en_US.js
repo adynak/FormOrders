@@ -33,10 +33,12 @@ var txtBuildLocalLibrary = {
     placeholderXcopyCommand: 'Click Find Forms to begin search',
     updateSuccessful: "Found your forms!",
     updateFailed: "Hmmmm.  That didn't work.",
-    waitWait: "Wait while your forms are downloaded.",
+    waitWait: "Your forms are downloading.",
+    waitTitle: "Download In Progress",
     completed: "Download complete for this form: ",
     downloading: "Downloading this form:",
-    downloadComplete: "Download completed."
+    downloadComplete: "Download completed.",
+    pathMissing: "Cannot download without a Local Library, something like C:\\123456_CDKMotors\\CAT1"
 }
 
 var txtMenuSide = [
