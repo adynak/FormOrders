@@ -1,71 +1,76 @@
 <div class="alert">
-	<div class="col-md-8 col-md-offset-2">
-		<form name="profileForm" class="alert" novalidate>
-		<h4 class="alert alert-cdk">{{prompts.pageTitle}}</h4>
+   <div class="col-md-8 col-md-offset-2">
+      <form name="libraryForm" class="alert" novalidate>
+      <h4 class="alert alert-cdk">{{prompts.pageTitle}}</h4>
+      <div class="form-group col-xs-5 col-sm-3 col-md-3 col-lg-3 required">
+         <label for="inputFormOrderID">{{prompts.formsList}}</label>
+         <textarea id="formsList" 
+                   placeholder="{{prompts.placeHolderFormsList}}" 
+                   cols="2"
+                   ng-model="formsList"
+                   ng-required="true"
+                   rows="20">
+         </textarea>
+      </div>
+      <div class="form-group col-xs-10 col-sm-9 col-md-9 col-lg-9">
+         <label for="inputDealRetail">{{prompts.xcopyCommand}}</label>
+         <textarea id="pasteText" 
+                   placeholder="{{prompts.placeholderXcopyCommand}}" 
+                   ng-model="foundForms"
+                   cols="2" 
+                   rows="20">
+         </textarea>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6">
+         <button class="btn btn-outline-info" 
+                 type="button" 
+                 ng-click="clearTextArea(this);">{{prompts.clearFormsList}}
+         </button>
+      </div>
+      <div class="clearfix"></div>
+      <br>
+      <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 required">
+         <label for="localFolder">{{prompts.localFolder}}</label>
+         <input class="form-control" 
+                type="text" 
+                name="localFolder" 
+                placeholder="{{prompts.placeholderLocalLibrary}}"
+                ng-model="localFolder"
+                tabindex="2"
+                ng-required="false">
+      </div>
 
-<!--         <button class="pull-right btn btn-outline-info pad-bottom" 
-				type="button" 
-				ng-click="clearTextArea(this);">{{prompts.clearFormsList}}z
-		</button>
- -->
-        <div class="form-group col-xs-5 col-sm-3 col-md-3 col-lg-3 required">
-          <label for="inputFormOrderID">{{prompts.formsList}}</label>
-          <textarea id="formsList" 
-                    placeholder="{{prompts.placeHolderFormsList}}" 
-                    cols="2"
-                    ng-model="formsList" 
-                    rows="20">
-          </textarea>
-        </div>
-
-        <div class="form-group col-xs-10 col-sm-9 col-md-9 col-lg-9">
-          <label for="inputDealRetail">{{prompts.xcopyCommand}}</label>
-          <textarea id="pasteText" placeholder="{{prompts.placeholderXcopyCommand}}" cols="2" rows="20"></textarea>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 required">
-            <button class="btn btn-outline-info" 
+      <div class="clearfix"></div>
+      
+      <div>
+         
+         <div class="btn-toolbar pull-right">
+            <button ng-disabled="libraryForm.$invalid"class="btn btn-teal" 
                     type="button" 
-                    ng-click="clearTextArea(this);">{{prompts.clearFormsList}}
-            </button>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <br>
-        
-        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 required">
-          <label for="localFolder">{{prompts.localFolder}}</label>
-          <input class="form-control" 
-                 type="text" 
-                 name="localFolder" 
-                 placeholder="{{prompts.placeholderLocalLibrary}}"
-                 ng-model="localFolder"
-                 tabindex="2"
-                 ng-required="true">
-        </div>
-
-        <div class="clearfix"></div>
-        <br>
-        <div>
-
-        
-        <br><br>
-        <div class="btn-toolbar pull-right">
-            <button class="btn btn-teal" 
-                type="button" 
-                ng-click="copyLibraryPathToClipboard();">{{prompts.btnWhereAreThey}}
+                    ng-click="copyLibraryPathToClipboard();">{{prompts.btnWhereAreThey}}
             </button>            
-    		<button class="btn alert-cdk" 
-    		    type="button" 
-    		    ng-click="getLibraryForm();">{{prompts.btnGoGetThem}}
-    		</button>
-    		<button class="btn btn-khaki" 
-    		    type="button" 
-    		    onclick="window.history.go(-1);">{{prompts.btnCancel}}
-    		</button>
-        </div>
-	</div>
+            <button class="btn alert-cdk" 
+                    type="button" 
+                    ng-click="getLibraryForm();">{{prompts.btnGoGetThem}}
+            </button>
+            <button class="btn btn-khaki" 
+                    type="button" 
+                    onclick="window.history.go(-1);">{{prompts.btnCancel}}
+            </button>
+         </div>
+
+      </div>
+
+      <div ng-show="formsAreMissing" class="col-xs-10 col-sm-6 col-md-6 col-lg-6">
+         <br>
+         <label for="localFolder">{{prompts.missingForms}}</label>
+         <input class="form-control" 
+                type="text" 
+                name="missingForms" 
+                ng-model="missingForms"
+                ng-required="false">
+      </div>
+
+   </div>
 </div>

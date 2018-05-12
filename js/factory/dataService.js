@@ -1,5 +1,5 @@
-formOrders.factory("Data", ['$http', '$q', '$rootScope',
-    function($http, $q, $rootScope) {
+formOrders.factory("Data", ['$http', '$q', '$rootScope', 'toaster',
+    function($http, $q, $rootScope, toaster) {
 
         var factoryVariables = {
             activeMember : null,
@@ -83,7 +83,6 @@ formOrders.factory("Data", ['$http', '$q', '$rootScope',
 
         };
 
-
         var getLibraryForm = function(pathToForm,formID,localFolder) {
             var qObject = $q.defer();
             var params = {
@@ -133,10 +132,7 @@ formOrders.factory("Data", ['$http', '$q', '$rootScope',
             var params = {
                 formID: formID
             };
-            var url = "http://public-api.wordpress.com/rest/v1/sites/wtmpeachtest.wordpress.com/posts?callback=JSON_CALLBACK";
-            url = 'https://portal.dealersuite.com/LenderForm/rest/eFormLibrary/getMappingFilePath';
-            // url = 'http://139.126.14.7/paris/ffc/formsOrders/findIt.php?formID=123';
-
+            var url = 'https://portal.dealersuite.com/LenderForm/rest/eFormLibrary/getMappingFilePath';
 
             $http({
                 method: 'GET',
@@ -149,7 +145,8 @@ formOrders.factory("Data", ['$http', '$q', '$rootScope',
             }).then(function(success) {
                 qObject.resolve(success.data);
             }, function(err) {
-                console.log(err);
+                // console.log(err);
+                toaster.error(factoryMessages.getFormsFailedTitle,factoryMessages.getFormsFailed,5000);
             });
             return qObject.promise;            
         }

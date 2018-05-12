@@ -31,14 +31,15 @@ var txtBuildLocalLibrary = {
     placeholderLocalLibrary: "Paste or type in the full path to your local library",
     xcopyCommand: 'Forms Found In These Folders',
     placeholderXcopyCommand: 'Click Find Forms to begin search',
-    updateSuccessful: "Found your forms!",
+    updateSuccessful: "Search Complete",
     updateFailed: "Hmmmm.  That didn't work.",
     waitWait: "Your forms are downloading.",
     waitTitle: "Download In Progress",
     completed: "Download complete for this form: ",
     downloading: "Downloading this form:",
     downloadComplete: "Download completed.",
-    pathMissing: "Cannot download without a Local Library, something like C:\\123456_CDKMotors\\CAT1"
+    pathMissing: "Cannot download without a Local Library, something like C:\\123456_CDKMotors\\CAT1",
+    missingForms: "Count not locate these forms.  Are they new forms or typos?"
 }
 
 var txtMenuSide = [
@@ -90,6 +91,11 @@ var txtProfile = {
     btnSubmit: 'Done',
     pageTitle: 'FO and Dealership',
     updateSuccessful: 'Profile Updated Successfully',
+};
+
+var factoryMessages = {
+    getFormsFailed: "Something about that forms list caused the search to fail.",
+    getFormsFailedTitle: "Search Request Refused"
 };
 
 var txtBrand = {

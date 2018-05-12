@@ -1,4 +1,6 @@
-formOrders.controller('BuildLocalLibraryController', ['$scope', '$http', '$location', 'Data', '$rootScope', '$routeParams', 'toaster',
+formOrders.controller('BuildLocalLibraryController', ['$scope', '$http', '$location', 
+													  'Data', '$rootScope', '$routeParams', 
+													  'toaster',
     function($scope, $http, $location, Data, $rootScope, $routeParams, toaster) {
 
 		$scope.prompts = txtBuildLocalLibrary;
@@ -6,21 +8,21 @@ formOrders.controller('BuildLocalLibraryController', ['$scope', '$http', '$locat
 		// \\139.126.12.159\ELF\DMV\State_specific\TEXAS\49145		
 		// C:\LaserInstalls\Clayco~1
 
-		// $scope.localFolder = 'C:\\LaserInstalls\\test\\CAT2';
-		// $scope.formsList = 63459 + "\n" + 66976;
+		$scope.localFolder = 'C:\\LaserInstalls\\test\\CAT2';
+		$scope.formsList = 63459 + "\n" + 66976;
+
+		$scope.formsAreMissing = false;
+		var missingFormsString = "";
 
 		$scope.copyLibraryPathToClipboard = function(){
 
-			var xcopyCommand, pathToForm, pasteText="";
-			var xcopyPrefix = "xcopy ";
-			var starDotStar = "\\*.* ";
-			var xcopySuffix = " /S /I";
-			var textArea = document.getElementById("formsList");
+			$scope.foundForms = "";
 
-			var arrayOfPaths = textArea.value.split("\n");
-			var numberOfForms = arrayOfPaths.length;
+			var pathToForm, numberOfForms, missingForms, pasteText="";
 
-			var formsString = arrayOfPaths.join();
+			var arrayOfForms = $scope.formsList.split("\n").map(Number);
+			var arrayOfFoundForms = [];
+			var formsString = arrayOfForms.join();
 			formsString = formsString.replace(/\s/g,'');
 
 			Data.getFormPath(formsString) 
@@ -29,18 +31,25 @@ formOrders.controller('BuildLocalLibraryController', ['$scope', '$http', '$locat
 					for (var i = 0; i < numberOfForms; i++) {
 						formID = response[i].formId;
 						pathToForm = response[i].path;
-						xcopyCommand = xcopyPrefix + pathToForm + starDotStar;
-						xcopyCommand += " " + $scope.localFolder + "\\" + formID + xcopySuffix;
-						xcopyCommand = pathToForm;
-						if (i==numberOfForms-1){
-							pasteText += xcopyCommand;
-						} else {
-							pasteText += xcopyCommand + "\r\n";
+
+						if (pathToForm != ""){
+							arrayOfFoundForms.push(formID);
+							if (i==numberOfForms-1){
+								pasteText += pathToForm;
+							} else {
+								pasteText += pathToForm + "\r\n";
+							}
 						}
 					}
 
-					var textArea = document.getElementById("pasteText");
-					textArea.value = pasteText;
+					missingForms = _.difference(arrayOfForms, arrayOfFoundForms);
+
+					if (!Array.isArray(missingForms) || missingForms.length) {
+						$scope.formsAreMissing = true;
+						$scope.missingForms = missingForms.join();
+					}
+
+					$scope.foundForms = pasteText;
 					toaster.pop('info', "", txtBuildLocalLibrary.updateSuccessful, 3000, 'trustedHtml');
 
 				}, function errorCallback(response){
@@ -51,84 +60,76 @@ formOrders.controller('BuildLocalLibraryController', ['$scope', '$http', '$locat
 		}
 
 		$scope.clearTextArea = function(){
-			document.getElementById("formsList").value = "";
-			document.getElementById("pasteText").value = "";
+			$scope.formsAreMissing = false;
+			$scope.missingFormsString = "";
+			$scope.formsList = "";
+			$scope.foundForms = "";
 		}
 
 		$scope.getLibraryForm = function(){
+
 			var localFolder = $scope.localFolder;
 
 			if (typeof(localFolder) == "undefined"){
 
 				var errorToast = {
-				    type: 'error',
-				    title: txtBuildLocalLibrary.localFolder,
-				    timeout: 9000,
-				    body: txtBuildLocalLibrary.pathMissing,
-				    showCloseButton: true
+					type: 'error',
+					title: txtBuildLocalLibrary.localFolder,
+					timeout: 9000,
+					body: txtBuildLocalLibrary.pathMissing,
+					showCloseButton: true
 				};
 
 				toaster.pop(errorToast);
 				return;
 			}
 
-			var xcopyCommand, pathToForm, pasteText="";
-			var xcopyPrefix = "xcopy ";
-			var starDotStar = "\\*.* ";
-			var xcopySuffix = " /S /I";
-			var textArea = document.getElementById("formsList");
-			var message;
 
-			var arrayOfPaths = textArea.value.split("\n");
-			var numberOfForms = arrayOfPaths.length;
+			$scope.foundForms = "";
 
-			var formsString = arrayOfPaths.join();
+			var pathToForm, numberOfForms, missingForms, pasteText="";
+			var formDef = {};
+
+			var arrayOfForms = $scope.formsList.split("\n").map(Number);
+			var arrayOfFoundForms = [];
+			var formsString = arrayOfForms.join();
 			formsString = formsString.replace(/\s/g,'');
 
 			Data.getFormPath(formsString) 
 				.then(function successCallback(response){
-
-					$scope.hideDownloading = false;
-
-					toaster.wait(txtBuildLocalLibrary.waitTitle,txtBuildLocalLibrary.waitWait,300000);
-
 					numberOfForms = response.length;
 					for (var i = 0; i < numberOfForms; i++) {
 						formID = response[i].formId;
 						pathToForm = response[i].path;
 
-						Data.getLibraryForm(pathToForm, formID, localFolder)
-							.then(function successCB(response){
-
-								var index = arrayOfPaths.indexOf(response);
-								if (index > -1) {
-								  arrayOfPaths.splice(index, 1);
-								}
-
-								if(arrayOfPaths.length==0){
-									toaster.clear();
-									toaster.pop(
-										{
-											type: 'success',
-											title:  txtBuildLocalLibrary.downloadComplete,
-											body: formsString,
-											showCloseButton: true,
-											timeout: 5000,
-											tapToDismiss: false
-										}
-									);
-								}
-
-							}, function errorCB(response){
-								console.log('whoops');
-						});
-
-						pasteText += pathToForm + "\n";
+						if (pathToForm != ""){
+							formDef.formID = formID;
+							formDef.pathToForm = pathToForm;
+							arrayOfFoundForms.push(formDef);
+							if (i==numberOfForms-1){
+								pasteText += pathToForm;
+							} else {
+								pasteText += pathToForm + "\r\n";
+							}
+						}
 					}
 
-					var textArea = document.getElementById("pasteText");
-					textArea.value = pasteText;
+					missingForms = _.difference(arrayOfForms, arrayOfFoundForms);
+
+					if (!Array.isArray(missingForms) || missingForms.length) {
+						$scope.formsAreMissing = true;
+						$scope.missingForms = missingForms.join();
+					}
+
+					$scope.foundForms = pasteText;
 					toaster.pop('info', "", txtBuildLocalLibrary.updateSuccessful, 3000, 'trustedHtml');
+console.log(arrayOfFoundForms);
+					numberOfForms = arrayOfFoundForms.length;
+					for (var i = 0; i < numberOfForms; i++) {
+						pathToForm = arrayOfFoundForms[i].pathToForm;
+						formID     = arrayOfFoundForms[i].formID;
+						console.log(pathToForm, formID);
+					}
 
 				}, function errorCallback(response){
 					toaster.pop('warning', "", txtBuildLocalLibrary.updateFailed, 3000, 'trustedHtml');
@@ -136,6 +137,7 @@ formOrders.controller('BuildLocalLibraryController', ['$scope', '$http', '$locat
 			});
 
 		}
+
 
     }
 ]);
