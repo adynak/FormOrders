@@ -47,31 +47,37 @@ var txtMenuSide = [
         label: "FO and Dealer",
         link:"profile",
         iconClass:"glyphicon glyphicon-info-sign alert-info",
+        showOrderOnly: true
     },
     {
         label: "CAT1",
         link:"category?category=CAT1",
-        iconClass:"glyphicon glyphicon-list alert-danger"
+        iconClass:"glyphicon glyphicon-list alert-danger",
+        showOrderOnly: true
     },
     {
         label: "CAT2",
         link:"category?category=CAT2",
-        iconClass:"glyphicon glyphicon-list alert-danger"
+        iconClass:"glyphicon glyphicon-list alert-danger",
+        showOrderOnly: true
     },
     {
         label: "CAT3",
         link:"category?category=CAT3",
-        iconClass:"glyphicon glyphicon-list alert-danger"
+        iconClass:"glyphicon glyphicon-list alert-danger",
+        showOrderOnly: true
     },
     {
         label: "Build Local Library",
         link:"buildLocalLibrary",
-        iconClass:"glyphicon glyphicon-cloud-download alert-info"
+        iconClass:"glyphicon glyphicon-cloud-download alert-info",
+        showOrderOnly: false
     },
     {
         label: "Customize Forms",
         link:"customizeLibrary",
-        iconClass:"glyphicon glyphicon-certificate alert-gold"
+        iconClass:"glyphicon glyphicon-certificate alert-gold",
+        showOrderOnly: false
     }
 ];
 

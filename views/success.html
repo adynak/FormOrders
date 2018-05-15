@@ -5,7 +5,7 @@
 
       <ul class="nav navbar-nav">
         <li ng-repeat="menuItem in sideMenu">
-          <a href="#/{{menuItem.link}}">{{menuItem.label}}
+          <a ng-show="menuItem.showOrderOnly" href="#/{{menuItem.link}}">{{menuItem.label}}
             <span style="font-size:16px;"
                   class="pull-right hidden-xs showopacity {{menuItem.iconClass}}">
             </span>
