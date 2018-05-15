@@ -1,7 +1,7 @@
 <div class="alert">
-	<div class="col-md-8 col-md-offset-2">
-     
-		<h4 class="alert alert-cdk">{{prompts.pageTitle}}</h4>
+    <div class="col-md-8 col-md-offset-2">
+
+        <h4 class="alert alert-cdk">{{prompts.pageTitle}}</h4>
 
         <label style="padding-top:15px" for="formOrderID">{{prompts.formsList}}</label>
 
@@ -10,7 +10,12 @@
                 ng-click="clearTextArea(this);">{{prompts.clearFormsList}}
         </button>
 
-		<textarea ng-model="formNumbers" id="formPaths" placeholder="{{prompts.placeHolderFormList}}" cols="2" rows="10"></textarea>
+        <textarea ng-model="formNumbers" 
+                  id="formPaths" 
+                  placeholder="{{prompts.placeHolderFormList}}" 
+                  cols="2" 
+                  rows="10">
+        </textarea>
         <div class="clearfix"></div>
 
         <div class="clearfix"></div>
@@ -18,47 +23,53 @@
 
         <div>
 
-    <div class="row">
-      <div class="col-md-6">
-        <p class="input-group">
-          <label for="formOrderID">{{prompts.dateDue}}&nbsp;&nbsp;&nbsp;</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="input-group">
+                        <label for="formOrderID">{{prompts.dateDue}}&nbsp;&nbsp;&nbsp;</label>
 
-          <input type="text" 
-          		 class="form-control" 
-          		 datepicker-popup="{{format}}" 
-          		 ng-model="dueDate" 
-          		 is-open="opened" 
-          		 min-date="minDate" 
-          		 max-date="'2025-06-22'" 
-          		 datepicker-options="dateOptions" 
-          		 date-disabled="disabled(date, mode)" 
-          		 ng-required="true" 
-          		 close-text="Close"/>
-          <span class="input-group-btn">
-                <button type="button" 
-                		    class="btn btn-default form-control pad-top" 
-                		    ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-        </p>
-      </div>
+                        <input type="text" 
+                               class="form-control" 
+                               datepicker-popup="{{format}}" 
+                               ng-model="dueDate" 
+                               is-open="opened" 
+                               min-date="minDate" 
+                               max-date="'2025-06-22'" 
+                               datepicker-options="dateOptions" 
+                               date-disabled="disabled(date, mode)" 
+                               ng-required="true" 
+                               close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" 
+                                    class="btn btn-default form-control pad-top" 
+                                    ng-click="open($event)">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <label for="comments">{{prompts.comments}}</label>
+            <textarea ng-model="comments" 
+                      placeholder="{{prompts.placeHolderComments}}" 
+                      cols="2" 
+                      rows="3">
+            </textarea>
+
+            <div class="clearfix"></div>
+            <br>
+
+            <div class="btn-toolbar pull-right">
+                <button class="btn btn-teal" 
+                        type="button" 
+                        ng-click="copyToClipboard();">{{prompts.btnCopyToClipboard}}
+                </button>
+                <button class="btn btn-khaki" 
+                        type="button" 
+                        ng-click="goBack();">{{prompts.btnCancel}}
+                </button>
+            </div>
+
+        </div>
     </div>
-
-    <label for="comments">{{prompts.comments}}</label>
-		<textarea ng-model="comments" placeholder="{{prompts.placeHolderComments}}" cols="2" rows="3"></textarea>
-
-    <div class="clearfix"></div>
-    <br>
-
-    <div class="btn-toolbar pull-right">
-  		<button class="btn btn-teal" 
-  		    type="button" 
-  		    ng-click="copyToClipboard();">{{prompts.btnCopyToClipboard}}
-  		</button>
-  		<button class="btn btn-khaki" 
-  		    type="button" 
-          ng-click="goBack();">{{prompts.btnCancel}}
-  		</button>
-    </div>
-
-	</div>
-</div>

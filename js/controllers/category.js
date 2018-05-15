@@ -4,6 +4,8 @@ formOrders.controller('CategoryController', ['$scope', '$http', '$location', 'Da
     $scope.prompts = txtCategoryFormsOrder;
 
     var category = getParameterByName('category');
+    var user = getParameterByName('user');
+    console.log(user);
 
     $scope.formNumbers = Data.getFormsOrders(category);
     $scope.prompts.pageTitle = category + txtCategoryFormsOrder.formsOrder;
@@ -53,86 +55,90 @@ formOrders.controller('CategoryController', ['$scope', '$http', '$location', 'Da
 
       var profile = Data.getProfile();
 
-      var clipboardText = "\r\n";
+      var clipboardText = "";
 
-      line = "[Forms Order]" + "\r\n";
+      line = "[Forms Order]" + "<br>";
       clipboardText += line;
 
       if (profile.formOrderID == null){
-        clipboardText += "\r\n";
+        clipboardText += "<br>";
       } else {
-        clipboardText += profile.formOrderID + "\r\n\r\n";
+        clipboardText += profile.formOrderID + "<br><br>";
       }
 
-      line = "[Contract Line]" + "\r\n";
+      line = "[Contract Line]" + "<br>";
       clipboardText += line;
 
       if (profile.contractLine == null){
-        clipboardText += "\r\n";
+        clipboardText += "<br>";
       } else {
-        clipboardText += profile.contractLine + "\r\n\r\n";
+        clipboardText += profile.contractLine + "<br><br>";
       }
 
-      line = "[Due Date]" + "\r\n";
+      line = "[Due Date]" + "<br>";
       clipboardText += line;
 
-      line = moment($scope.dueDate).format('MM/DD/YYYY') + "\r\n\r\n";
+      line = moment($scope.dueDate).format('MM/DD/YYYY') + "<br><br>";
       clipboardText += line;
 
-      line = "[Test Deals]" + "\r\n";
+      line = "[Test Deals]" + "<br>";
       clipboardText += line;
 
       if (profile.dealRetail == null){
-        clipboardText += "Retail Deal: " + "\r\n";
+        clipboardText += "Retail Deal: " + "<br><br>";
       } else {
-        clipboardText += "Retail Deal: " + profile.dealRetail + "\r\n";
+        clipboardText += "Retail Deal: " + profile.dealRetail + "<br>";
       }
 
       if (profile.dealLease == null){
-        clipboardText += "Lease Deal: " + "\r\n\r\n";
+        clipboardText += "Lease Deal: " + "<br><br>";
       } else {
-        clipboardText += "Lease Deal: " + profile.dealLease + "\r\n\r\n";
+        clipboardText += "Lease Deal: " + profile.dealLease + "<br><br>";
       }
 
-      line = "[" + category + " Forms]"+ "\r\n";
+      line = "[" + category + " Forms]"+ "<br>";
       clipboardText += line;
 
-      if (typeof($scope.formNumbers) == "undefined"){
-        clipboardText += "\r\n";
+      console.log($scope.formNumbers);
+      if (typeof($scope.formNumbers) == "undefined" || $scope.formNumbers == null){
+        clipboardText += "<br>";
       } else {
         var temp = $scope.formNumbers;
-        line = temp.replace(/\r?\n/g, "\r\n");
+        line = temp.replace(/\r?\n/g, "<br>");
         clipboardText += line;
-        clipboardText += "\r\n\r\n";
+        clipboardText += "<br><br>";
       }
 
       if (typeof($scope.comments) == "undefined"){
-        clipboardText += "\r\n";
+        clipboardText += "<br>";
       } else {
-        clipboardText += "[Comments]"+ "\r\n";
-        clipboardText += $scope.comments + "\r\n\r\n";
+        clipboardText += "[Comments]"+ "<br>";
+        clipboardText += $scope.comments + "<br><br>";
       }
 
-      clipboardText += "[CMF]"+ "\r\n";
-      clipboardText += $scope.comments + "\r\n\r\n";
+      if (user !== null){
+        clipboardText += "[CMF]"+ "<br>";
+        clipboardText += $scope.comments + "<br><br>";
 
-      clipboardText += "[CNumber]"+ "\r\n";
-      clipboardText += $scope.comments + "\r\n\r\n";
+        clipboardText += "[CNumber]"+ "<br>";
+        clipboardText += $scope.comments + "<br><br>";
 
-      clipboardText += "[Case]"+ "\r\n";
-      clipboardText += $scope.comments + "\r\n\r\n";
+        clipboardText += "[Case]"+ "<br>";
+        clipboardText += $scope.comments + "<br><br>";
 
-      clipboardText += "[DashFI]"+ "\r\n";
-      clipboardText += $scope.comments + "\r\n\r\n";
+        clipboardText += "[DashFI]"+ "<br>";
+        clipboardText += $scope.comments + "<br><br>";
 
-      clipboardText += "[IPAddress]"+ "\r\n";
-      clipboardText += $scope.comments + "\r\n\r\n";      
+        clipboardText += "[IPAddress]"+ "<br>";
+        clipboardText += $scope.comments + "<br><br>";
+      }
 
       Data.setFormsOrders(category,$scope.formNumbers);
 
         // create temp element
       var copyElement = document.createElement("span");
-      copyElement.appendChild(document.createTextNode(clipboardText));
+      copyElement.innerHTML = clipboardText;
+      // copyElement.appendChild(document.createTextNode(clipboardText));
       copyElement.id = 'tempCopyToClipboard';
       angular.element(document.body.append(copyElement));
 
