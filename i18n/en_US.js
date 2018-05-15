@@ -33,11 +33,11 @@ var txtBuildLocalLibrary = {
     placeholderXcopyCommand: 'Click Find Forms to begin search',
     updateSuccessful: "Search Complete",
     updateFailed: "Hmmmm.  That didn't work.",
-    waitWait: "Your forms are downloading.",
+    waitWait: "I'll let you know when I'm done.",
     waitTitle: "Download In Progress",
     completed: "Download complete for this form: ",
     downloading: "Downloading this form:",
-    downloadComplete: "Download completed.",
+    downloadComplete: "Download completed for these forms:.",
     pathMissing: "Cannot download without a Local Library, something like C:\\123456_CDKMotors\\CAT1",
     missingForms: "Count not locate these forms.  Are they new forms or typos?"
 }

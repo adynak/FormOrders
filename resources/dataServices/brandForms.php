@@ -3,8 +3,12 @@
 	$data = file_get_contents("php://input");
 	$data = json_decode($data);
 
-	$fp = fopen('C:\Bitnami\wampstack-7.1.11-0\apache2\htdocs\formsOrders\test.txt','a');
-	fwrite($fp , print_r($data,1));
+	$debug = false;
+
+	if ($debug){
+		$fp = fopen('C:\Bitnami\wampstack-7.1.11-0\apache2\htdocs\formsOrders\test.txt','a');
+		fwrite($fp , print_r($data,1));
+	}
 
 	if (json_last_error() === JSON_ERROR_NONE) { 
 		$dataOkay = true;
@@ -49,9 +53,12 @@
 
 	function clearSampleDeals($sampleDeals, $pathToForms, $pathToNewSampleDeals){
 		global $fp;
+		global $debug;
 
-		fwrite($fp , 'starting to clear sample deals');
-		fwrite($fp , "\n");
+		if ($debug){
+			fwrite($fp , 'starting to clear sample deals');
+			fwrite($fp , "\n");
+		}
 		$forms = [];
 		$test = [];
 		$newDeals = explode(',' , $sampleDeals);
@@ -79,17 +86,22 @@
 			}
 		}
 
-		if (in_array("NOK", $test)){
-			fwrite($fp , "sample deal copy failed");
-		} else {
-			fwrite($fp , "sample deal copy complete");
-		}		
+		if ($debug){
+			if (in_array("NOK", $test)){
+				fwrite($fp , "sample deal copy failed");
+			} else {
+				fwrite($fp , "sample deal copy complete");
+			}		
+		}
 	}
 
 	function listMaps($pathToForms, $dashFI){
 		global $fp;
-		fwrite($fp , 'map items to rename');
-		fwrite($fp , "\n");
+		global $debug;
+		if ($debug){
+			fwrite($fp , 'map items to rename');
+			fwrite($fp , "\n");
+		}
 		foreach($pathToForms as $formRootFolder){
 			$dir = $formRootFolder . '\maps';
 			$formItems = scandir($dir);
@@ -117,8 +129,11 @@
 
 	function listFields($pathToForms, $dashFI){
 		global $fp;
-		fwrite($fp , 'field items to rename');
-		fwrite($fp , "\n");
+		global $debug;
+		if ($debug){
+			fwrite($fp , 'field items to rename');
+			fwrite($fp , "\n");
+		}
 		$dashParts = explode('-' , $dashFI);
 		$dashRoot = $dashParts[0];
 		foreach($pathToForms as $formRootFolder){
@@ -138,10 +153,12 @@
 						// echo $oldName . '<br>';
 						// echo $newName . '<br>';						
 					} else {
-						fwrite($fp , 'rename failed for ' . $oldName);
-						fwrite($fp , "\n");
-						fwrite($fp , 'rename failed for ' . $newName);
-						fwrite($fp , "\n");
+						if ($debug){
+							fwrite($fp , 'rename failed for ' . $oldName);
+							fwrite($fp , "\n");
+							fwrite($fp , 'rename failed for ' . $newName);
+							fwrite($fp , "\n");
+						}
 					}					
 				}
 			}
@@ -162,15 +179,20 @@
 
 	function listDefaultCfs($pathToForms,$dashFI, $fiStream, $Cnumber, $CMFNumber, $DialinNumber, $updateBy){
 		global $fp;
-		fwrite($fp , 'default.cfs files to edit');
-		fwrite($fp , "\n");
+		global $debug;
+		if ($debug){
+			fwrite($fp , 'default.cfs files to edit');
+			fwrite($fp , "\n");
+		}
 
 		$today        = date('m/d/Y');
 		foreach($pathToForms as $item){
 			$defaultFile = $item . "\default.cfs";
 			if (is_file($defaultFile)){
-				fwrite($fp , 'branding ' . $defaultFile);
-				fwrite($fp , "\n");
+				if ($debug){
+					fwrite($fp , 'branding ' . $defaultFile);
+					fwrite($fp , "\n");
+				}
 
 				$lines = explode("\n", file_get_contents($defaultFile));
 				$numberOfLines = count($lines);
